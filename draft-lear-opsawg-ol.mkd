@@ -138,7 +138,7 @@ Example
       ],
     "ol" : {
          "owners" : [ "Eliot Lear" ],
-         "license-info" : "SPDX0",
+         "license-info" : "MIT-0",
       }
   }
 }
