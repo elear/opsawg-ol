@@ -3,6 +3,7 @@ title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
 docname: draft-lear-opsawg-ol
 category: std
+updates: 8520
 
 ipr: trust200902
 keyword: Internet-Draft
