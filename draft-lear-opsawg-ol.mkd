@@ -67,7 +67,7 @@ purpose of offering them, when the manufacturer is not involved.
 To avoid any confusion, we define an extension that allows for
 specifying of owners and licensing terms for MUD files.
 
-Those generating generating MUD files SHOULD use this extension, and
+Those generating MUD files SHOULD use this extension, and
 thus this extension updates RFC 8520.
 
 There are two ways to specify a license: a URL pointing to the license
