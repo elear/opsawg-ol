@@ -34,8 +34,8 @@ module ietf-ol {
      (https://trustee.ietf.org/license-info).
 
      This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself for
-     full legal notices.
+     (https://www.rfc-editor.org/info/rfcXXXX);
+     see the RFC itself for full legal notices.
 
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
      NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
@@ -60,7 +60,7 @@ module ietf-ol {
       type string;
         description
           "A list of owners, may be in the form of a copyright
-                 Example: Copyright (c) Jane Smith.  All rights Reserved.";
+           Example: Copyright (c) Jane Smith.  All rights Reserved.";
         }
       choice license-type {
         description "Either choose a standard license type or point
