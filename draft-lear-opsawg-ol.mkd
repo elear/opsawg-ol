@@ -63,6 +63,7 @@ means to specify ownership and licensing of the MUD file itself.  This
 can hinder those wishing to use, modify, or adapt MUD files for the
 purpose of offering them, when the manufacturer is not involved.
 
+* **Issue**: Should this be an owner or an originator?
 
 To avoid any confusion, we define an extension that allows for
 specifying of owners and licensing terms for MUD files.
@@ -73,6 +74,9 @@ thus this extension updates RFC 8520.
 There are two ways to specify a license: a URL pointing to the license
 itself or an SPDX tag {{SPDX}}.  If an SPDX tag is supplied consumers
 MUST interpret that tag through its meaning as specified by {{SPDX}}.
+
+* **Issue**: Should we simply say that a URI contains a colon and SPDX
+  license identifier doesn't?
 
 This grouping may be used for other YANG models that reside as
 static objects.
@@ -99,6 +103,13 @@ module: ietf-ol
              +--rw license-info?   inet:uri
 
 ~~~~~~~~~
+
+
+* **Issue**: Should different owners possibly have their own license
+  types?  (Logical and, derived works.)
+* **Issue**: Should a single owner possibly have multiple license
+  types?  (Logical or, multi-licensing.)
+
 
 The YANG schema for ownership and licensing
 ============================
@@ -144,10 +155,17 @@ Example
 }
 ~~~~~~~~
 
+* **Task**: need Makefile for validating this against MUD.
+  (Probably put this into a separate file, too.)
+
+* **Issue**: Should we give an example for usage outside yang?
+
 Security Considerations
 =======================
 
 No security considerations have been identified.
+
+* **Issue**: Should we maybe point out any specific seccons of 8520?
 
 IANA Considerations
 ===================
