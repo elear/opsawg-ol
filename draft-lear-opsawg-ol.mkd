@@ -217,27 +217,34 @@ array, as specified by {{RFC8520}}.
 Example
 =======
 
+In this example, the Frobmaster company is using the 0BSD SPDX
+tag to indicate a relatively open license.  The "ol" extension
+and container are present.  There is a single owner listed.
 
 ~~~~~~~~
+
 {
   "ietf-mud:mud": {
     "mud-version": 1,
-    "mud-url": "https://iot-device.example.com/dnsname",
-    "last-update": "2019-01-15T10:22:47+00:00",
+    "extensions": [
+      "ol"
+    ],
+    "ol": {
+      "owners": [
+        "Copyright (c) FrobMaster 2021. All Rights Reserved"
+      ],
+      "spdx-tag": "0BSD"
+    },
+    "mud-url": "https://frobs.example.com/mud/Frob.json",
+    "mud-signature": "https://frobs.example.com/mud/Frob.p7s",
+    "last-update": "2021-05-24T11:26:04+00:00",
     "cache-validity": 48,
     "is-supported": true,
-    "systeminfo": "device that wants to talk to a cloud service",
-    "mfg-name": "Example, Inc.",
-    "documentation": "https://frobinator.example.com/doc/frob2000",
-    "model-name": "Frobinator 2000",
-    "extensions" : [ 
-       "ol"
-      ],
-    "ol" : {
-         "owners" : [ "Eliot Lear" ],
-         "license-info" : "SPDX0",
-      }
-  }
+    "systeminfo": "This device helps produce frobs",
+    "mfg-name": "FrobMaster",
+    "documentation": "https://frobs.example.com/doc",
+    "model-name": "Frobinator"
+    }
 }
 ~~~~~~~~
 
