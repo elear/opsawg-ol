@@ -197,6 +197,10 @@ extensions registry as follows:
 Changes from Earlier Versions
 =============================
 
+Draft -01:
+  * Add some issues
+  * correct spacing
+
 Draft -00:
 
   * Initial revision
