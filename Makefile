@@ -6,7 +6,7 @@ DOCS=	draft-lear-opsawg-ol.txt \
 all: $(DOCS)
 
 %.xml:	%.mkd
-	kramdown-rfc2629  $< > $@
+	kramdown-rfc2629 --v3  $< > $@
 %.html %.txt:	%.xml
 	xml2rfc --html $<
 	xml2rfc --text $<
