@@ -197,11 +197,15 @@ extensions registry as follows:
 Changes from Earlier Versions
 =============================
 
-Draft -01:
+Draft -00:
+
+  * Resubmit unchanged
+
+Individual Draft -01:
 
   * Add some issues
   * correct spacing
 
-Draft -00:
+Individual Draft -00:
 
   * Initial revision
