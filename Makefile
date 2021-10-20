@@ -1,7 +1,7 @@
 
-DOCS=	draft-lear-opsawg-ol.txt \
-	draft-lear-opsawg-ol.xml \
-	draft-lear-opsawg-ol.html
+DOCS=	draft-ietf-opsawg-ol.txt \
+	draft-ietf-opsawg-ol.xml \
+	draft-ietf-opsawg-ol.html
 
 all: $(DOCS)
 
