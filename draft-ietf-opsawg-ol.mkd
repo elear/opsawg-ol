@@ -203,6 +203,11 @@ Standard reference:
 Changes from Earlier Versions
 =============================
 
+Draft -01:
+
+  * Format IANA considerations
+  * Discuss security considerations
+
 Draft -00:
 
   * Resubmit unchanged
