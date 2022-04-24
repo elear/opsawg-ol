@@ -1,16 +1,15 @@
 ---
+v: 3
+
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-00
+docname: draft-ietf-opsawg-ol-01
 category: std
 consensus: true
+submissiontype: IETF
 updates: 8520
 
-ipr: trust200902
 keyword: Internet-Draft
-
-stand_alone: yes
-pi: [toc, sortrefs, symrefs]
 
 author:
  -
