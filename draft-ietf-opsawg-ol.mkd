@@ -170,9 +170,14 @@ and container are present.  There is a single owner listed.
 Security Considerations
 =======================
 
-No security considerations have been identified.
-
-* **Issue**: Should we maybe point out any specific seccons of 8520?
+The security considerations of {{Section 16 of -mud}} with respect to
+obtaining validation for information claimed in a MUD file do apply.
+While the information described in this specification is not intended
+to directly influence the behavior of protective infrastructure, it
+may be used by an aggregator as input for deciding the legal basis
+that enables providing aggregated information; depending on the
+juridical environment, false information in the MUD file may thus
+expose the aggregator to additional legal risk.
 
 IANA Considerations
 ===================
