@@ -33,7 +33,8 @@ author:
     email: cabo@tzi.org
 
 normative:
-   RFC8520:
+   RFC8520: mud
+   IANA.mud:
    SPDX:
      title: SPDX Specification 2.1
      author:
@@ -179,15 +180,16 @@ IANA Considerations
 MUD Extension
 -------------
 
-The IANA is requested to add "ol" to the MUD
-extensions registry as follows:
+The IANA is requested to add "ol" to the
+{{mud-extensions (MUD extensions registry)<IANA.mud}} of {{IANA.mud}}
+as follows:
 
-~~~~~~~
+{:vspace}
+Extension Name: 
+: ol
 
-  Extension Name: ol
-  Standard reference: This document
-
-~~~~~~~
+Standard reference:
+: This document
 
 
 --- back
