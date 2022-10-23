@@ -203,6 +203,7 @@ Changes from Earlier Versions
 =============================
 
 Draft -02:
+
   * Small updates to the example
 
 Draft -01:
