@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-01
+docname: draft-ietf-opsawg-ol-02
 category: std
 consensus: true
 submissiontype: IETF
@@ -135,8 +135,7 @@ In this example, the Frobmaster company is using the 0BSD SPDX
 tag to indicate a relatively open license.  The "ol" extension
 and container are present.  There is a single owner listed.
 
-~~~~~~~~
-
+~~~~~~~~ json
 {
   "ietf-mud:mud": {
     "mud-version": 1,
@@ -158,7 +157,7 @@ and container are present.  There is a single owner listed.
     "mfg-name": "FrobMaster",
     "documentation": "https://frobs.example.com/doc",
     "model-name": "Frobinator"
-    }
+  }
 }
 ~~~~~~~~
 
@@ -202,6 +201,9 @@ Standard reference:
 
 Changes from Earlier Versions
 =============================
+
+Draft -02:
+  * Small updates to the example
 
 Draft -01:
 
