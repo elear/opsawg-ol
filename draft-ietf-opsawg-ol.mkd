@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-02
+docname: draft-ietf-opsawg-ol-03
 category: std
 consensus: true
 submissiontype: IETF
@@ -116,11 +116,10 @@ The YANG schema for ownership and licensing
 
 The following grouping and augmentation are proposed.
 
-~~~~~
-<CODE BEGINS>file "ietf-ol@2021-05-21.yang"
+~~~~~ yang
 {::include ietf-ol@2021-05-21.yang}
-<CODE ENDS>
 ~~~~~
+{: sourcecode-markers='true' sourcecode-name='ietf-ol@2021-05-21.yang'}
 
 Extension for MUD
 =================
