@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-03
+docname: draft-ietf-opsawg-ol-04
 category: std
 consensus: true
 submissiontype: IETF
@@ -12,9 +12,7 @@ updates: 8520
 keyword: Internet-Draft
 
 author:
- -
-    ins: E. Lear
-    name: Eliot Lear
+ -  name: Eliot Lear
     org: Cisco Systems
     street: Richtistrasse 7
     code: CH-8304
@@ -22,9 +20,7 @@ author:
     country: Switzerland
     phone: "+41 44 878 9200"
     email: lear@cisco.com
- -
-    ins: C. Bormann
-    name: Carsten Bormann
+ -  name: Carsten Bormann
     org: Universität Bremen TZI
     street: Postfach 330440
     city: Bremen
