@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-04
+docname: draft-ietf-opsawg-ol-05
 category: std
 consensus: true
 submissiontype: IETF
@@ -32,10 +32,11 @@ normative:
    RFC8520: mud
    IANA.mud:
    SPDX:
-     title: SPDX Specification 2.1
+     title: The Software Package Data Exchange® (SPDX®) Specification Version 2.3
      author:
        org: The Linux Foundation
-     date: 2016
+     date: 2022
+     target: https://spdx.github.io/spdx-spec/v2.3/
 
 informative:
 
