@@ -87,8 +87,8 @@ Because the model is primarily motivated by MUD, and based
 on the way that YANG trees are formed, the model appears as
 an augmentation for MUD.
 
-~~~~~~~~~
-{{::include yang.tree}
+~~~~~~~~~ yangtree
+{::include yang.tree}
 ~~~~~~~~~
 
 
@@ -122,7 +122,7 @@ tag to indicate a relatively open license.  The "ol" extension
 and container are present.  There is a single owner listed.
 
 ~~~~~~~~ json
-{{:include example.json}
+{:include example.json}
 ~~~~~~~~
 
 * **Task**: need Makefile for validating this against MUD.
