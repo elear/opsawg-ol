@@ -88,17 +88,7 @@ on the way that YANG trees are formed, the model appears as
 an augmentation for MUD.
 
 ~~~~~~~~~
-module: ietf-ol
-
-  augment /mud:mud:
-    +--rw ol
-       +--rw owners*               string
-       +--rw (license-type)?
-          +--:(spdx-lt)
-          |  +--rw spdx-tag?       string
-          +--:(url)
-             +--rw license-info?   inet:uri
-
+{{::include yang.tree}
 ~~~~~~~~~
 
 
@@ -114,9 +104,9 @@ The YANG schema for ownership and licensing
 The following grouping and augmentation are proposed.
 
 ~~~~~ yang
-{::include ietf-ol@2021-05-21.yang}
+{::include ietf-ol.yang}
 ~~~~~
-{: sourcecode-markers='true' sourcecode-name='ietf-ol@2021-05-21.yang'}
+{: sourcecode-markers='true' sourcecode-name='ietf-ol@2024-04-26.yang'}
 
 Extension for MUD
 =================
@@ -191,6 +181,39 @@ Extension Name:
 Standard reference:
 : This document
 
+## XML Name Space Entry
+
+This document requests IANA to register the following URI in the "ns"
+subregistry within the "IETF XML Registry" in accordance with {{!RFC3688}}:
+
+{:vspace}
+
+URI:
+: urn:ietf:params:xml:ns:yang:ietf-ol
+
+Registrant Contact:
+: The IESG.
+
+XML: N/A; the requested URI is an XML namespace.
+
+## YANG Module Names
+
+This document requests IANA to register the following YANG module in
+the "YANG Module Names" subregistry in accordance with {{!RFC6020}}
+within the "YANG Parameters" registry.
+
+{:vspace}
+
+name:
+: ietf-ol
+namespace:
+: urn:ietf:params:xml:ns:yang:ietf-ol
+maintained by IANA:
+: N
+prefix:
+: ol
+reference:
+: RFC XXXX
 
 --- back
 
