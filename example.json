@@ -7,10 +7,11 @@
     "ietf-ol:ol": {
       "licenses": [
         {
-	  [  "spdx-tag": "0BSD" ]
-        },
+        "owner-name": "Frobinator Example Inc.",
+	"spdx-tags": ["0BSD"]
+        }
       ]
-    }
+    },
     "mud-url": "https://frobs.example.com/mud/Frob.json",
     "mud-signature": "https://frobs.example.com/mud/Frob.p7s",
     "last-update": "2021-05-24T11:26:04+00:00",
