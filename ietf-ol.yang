@@ -50,9 +50,9 @@ module ietf-ol {
       "RFC XXXX: Extension for ownership and licensing";
   }
 
-  grouping ol-extension {
+  grouping owner-license-grouping {
     description
-      "OL extension grouping";
+      "A grouping expression ownership and license information";
     container ol {
       description
         "container relating to ownership and licensing.";
@@ -85,6 +85,6 @@ module ietf-ol {
   augment "/mud:mud" {
     description
       "Add extension for Ownership and licensing.";
-    uses ol-extension;
+    uses owner-license-grouping;
   }
 }
