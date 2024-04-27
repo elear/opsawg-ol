@@ -5,12 +5,14 @@ module ietf-ol {
 
   import ietf-inet-types {
     prefix inet;
+    reference
+      "RFC 6991: Common Yang Data Types, Section 4";
   }
-  
   import ietf-mud {
-    prefix mud;
+    prefix ietf-mud;
+    reference
+      "RFC 8520: Manufacturer Usage Description Specification";
   }
-
 
   organization
     "IETF OPSAWG (Ops Area) Working Group";
@@ -23,7 +25,7 @@ module ietf-ol {
   description
     "This YANG module to indicate ownership and licensing.
 
-     Copyright (c) 2021 IETF Trust and the persons identified as
+     Copyright (c) 2024 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -35,15 +37,9 @@ module ietf-ol {
 
      This version of this YANG module is part of RFC XXXX
      (https://www.rfc-editor.org/info/rfcXXXX);
-     see the RFC itself for full legal notices.
+     see the RFC itself for full legal notices.";
 
-     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-     'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-     they appear in all capitals, as shown here.  ";
-
-  revision 2021-05-21 {
+  revision 2024-04-26 {
     description
       "Initial proposed standard.";
     reference
@@ -56,33 +52,42 @@ module ietf-ol {
     container ol {
       description
         "container relating to ownership and licensing.";
-      leaf-list owners {
-      type string;
+      list licenses {
+        key "owner-name";
         description
-          "A list of owners, may be in the form of a copyright
-           Example: Copyright (c) Jane Smith.  All rights Reserved.";
-        }
-      choice license-type {
-        description "Either choose a standard license type or point
-                     to one of your own.";
-        case spdx-lt {
-          leaf spdx-tag {
-            type string;
-            description "SPDX License Identifier, as indicated at
-                         https://spdx.org/licenses/";
+          "list of licenses that may be applied.";
+        leaf owner-name {
+          type string {
+            length "1..128";
           }
+          description
+            "name of the owner";
         }
-        case url {
-          leaf license-info {
-            type inet:uri;
-            description "A URL pointing to licensing information.";
+        choice license-type {
+          description
+            "Either choose a standard license type or point
+             to one of your own.";
+          case spdx-lt {
+            leaf-list spdx-tags {
+              type string;
+              description
+                "SPDX License Identifier, as indicated at
+                 https://spdx.org/licenses/";
+            }
+          }
+          case url {
+            leaf-list license-info {
+              type inet:uri;
+              description
+                "A URL pointing to licensing information.";
+            }
           }
         }
       }
     }
   }
 
-  augment "/mud:mud" {
+  augment "/ietf-mud:mud" {
     description
       "Add extension for Ownership and licensing.";
     uses owner-license-grouping;
