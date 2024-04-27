@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-05
+docname: draft-ietf-opsawg-ol-06
 category: std
 consensus: true
 submissiontype: IETF
@@ -114,7 +114,7 @@ The YANG schema for ownership and licensing
 The following grouping and augmentation are proposed.
 
 ~~~~~ yang
-{::include ietf-ol@2021-05-21.yang}
+{::include ietf-ol.yang}
 ~~~~~
 {: sourcecode-markers='true' sourcecode-name='ietf-ol@2021-05-21.yang'}
 
@@ -132,29 +132,7 @@ tag to indicate a relatively open license.  The "ol" extension
 and container are present.  There is a single owner listed.
 
 ~~~~~~~~ json
-{
-  "ietf-mud:mud": {
-    "mud-version": 1,
-    "extensions": [
-      "ol"
-    ],
-    "ol": {
-      "owners": [
-        "Copyright (c) FrobMaster 2021. All Rights Reserved"
-      ],
-      "spdx-tag": "0BSD"
-    },
-    "mud-url": "https://frobs.example.com/mud/Frob.json",
-    "mud-signature": "https://frobs.example.com/mud/Frob.p7s",
-    "last-update": "2021-05-24T11:26:04+00:00",
-    "cache-validity": 48,
-    "is-supported": true,
-    "systeminfo": "This device helps produce frobs",
-    "mfg-name": "FrobMaster",
-    "documentation": "https://frobs.example.com/doc",
-    "model-name": "Frobinator"
-  }
-}
+{::include example.json}
 ~~~~~~~~
 
 * **Task**: need Makefile for validating this against MUD.
