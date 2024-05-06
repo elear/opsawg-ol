@@ -5,10 +5,12 @@
       "ol"
     ],
     "ietf-ol:ol": {
-      "licenses": [
+      "license": [
         {
-            "owner-name" : "Copyright 2024 Frobinator, Inc",
-            "spdx-tags": [ "0BSD" ]
+          "owner-name": "Copyright 2024 Frobinator, Inc",
+          "spdx-tags": [
+            "0BSD"
+          ]
         }
       ]
     },
