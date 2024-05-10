@@ -2,7 +2,7 @@ module: ietf-ol
 
   augment /ietf-mud:mud:
     +--rw ol
-       +--rw licenses* [owner-name]
+       +--rw license* [owner-name]
           +--rw owner-name            string
           +--rw (license-type)?
              +--:(spdx-lt)
