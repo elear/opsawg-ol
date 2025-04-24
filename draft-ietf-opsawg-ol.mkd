@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-06
+docname: draft-ietf-opsawg-ol-07
 category: std
 consensus: true
 submissiontype: IETF
