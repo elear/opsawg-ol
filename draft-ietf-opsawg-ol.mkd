@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-07
+docname: draft-ietf-opsawg-ol-08
 category: std
 consensus: true
 submissiontype: IETF
@@ -42,7 +42,8 @@ informative:
 
 --- abstract
 
-This memo provides for an extension to RFC 8520 that allows
+This memo provides for an extension to RFC 8520 (Manufacturer Usage
+Description Specification, MUD) that allows
 MUD file authors to specify ownership and licensing of MUD
 files themselves.  This memo updates RFC 8520.  However, it
 can also be used for purposes outside of MUD, and the grouping
