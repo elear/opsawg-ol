@@ -153,7 +153,6 @@ The IANA is requested to add "ol" to the
 {{mud-extensions (MUD extensions registry)<IANA.mud}} of {{IANA.mud}}
 as follows:
 
-{:vspace}
 Extension Name: 
 : ol
 
@@ -164,8 +163,6 @@ Standard reference:
 
 This document requests IANA to register the following URI in the "ns"
 subregistry within the "IETF XML Registry" in accordance with {{!RFC3688}}:
-
-{:vspace}
 
 URI:
 : urn:ietf:params:xml:ns:yang:ietf-ol
@@ -181,16 +178,18 @@ This document requests IANA to register the following YANG module in
 the "YANG Module Names" subregistry in accordance with {{!RFC6020}}
 within the "YANG Parameters" registry.
 
-{:vspace}
-
 name:
 : ietf-ol
+
 namespace:
 : urn:ietf:params:xml:ns:yang:ietf-ol
+
 maintained by IANA:
 : N
+
 prefix:
 : ol
+
 reference:
 : RFC XXXX
 
