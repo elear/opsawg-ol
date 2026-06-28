@@ -6,7 +6,7 @@ module ietf-owner-license {
   import ietf-inet-types {
     prefix inet;
     reference
-      "RFC 6991: Common Yang Data Types, Section 4";
+      "RFC 9911: Common Yang Data Types, Section 4";
   }
   import ietf-mud {
     prefix ietf-mud;
