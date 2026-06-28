@@ -1,4 +1,4 @@
-module: ietf-ol
+module: ietf-owner-license
 
   augment /ietf-mud:mud:
     +--rw owner-license

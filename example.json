@@ -4,7 +4,7 @@
     "extensions": [
       "ol"
     ],
-    "ietf-ol:owner-license": {
+    "ietf-owner-license:owner-license": {
       "license": [
         {
           "owner-name": "Copyright 2024 Frobinator, Inc",

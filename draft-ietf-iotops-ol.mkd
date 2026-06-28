@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-iotops-ol-03
+docname: draft-ietf-iotops-ol-04
 category: std
 consensus: true
 submissiontype: IETF
@@ -61,8 +61,6 @@ means to specify ownership and licensing of the MUD file itself.  This
 can hinder those wishing to use, modify, or adapt MUD files for the
 purpose of offering them, when the manufacturer is not involved.
 
-* **Issue**: Should this be an owner or an originator?
-
 To avoid any confusion, we define an extension that allows for
 specifying of owners and licensing terms for MUD files.
 
@@ -70,11 +68,11 @@ Those generating MUD files SHOULD use this extension, and
 thus this extension updates RFC 8520.
 
 There are two ways to specify a license: a URL pointing to the license
-itself or an SPDX tag {{SPDX}}.  If an SPDX tag is supplied consumers
-MUST interpret that tag through its meaning as specified by {{SPDX}}.
-
-* **Issue**: Should we simply say that a URI contains a colon and SPDX
-  license identifier doesn't?
+itself or an SPDX tag {{SPDX}}.  These alternatives are expressed as
+distinct cases of a YANG `choice`, so each license entry unambiguously
+carries either one or more SPDX tags or one or more license URLs.
+If an SPDX tag is supplied consumers MUST interpret that tag through
+its meaning as specified by {{SPDX}}.
 
 This grouping may be used for other YANG models that reside as
 static objects.
@@ -86,103 +84,136 @@ The owner-license extension and model
 
 Because the model is primarily motivated by MUD, and based
 on the way that YANG trees are formed, the model appears as
-an augmentation for MUD.
+an augmentation for MUD.  The tree diagram below uses the
+notation defined in {{!RFC8340}}.
 
 ~~~~~~~~~ yangtree
 {::include yang.tree}
 ~~~~~~~~~
 
-
-* **Issue**: Should different owners possibly have their own license
-  types?  (Logical and, derived works.)
-* **Issue**: Should a single owner possibly have multiple license
-  types?  (Logical or, multi-licensing.)
+Each `license` list entry is keyed by `owner-name`, so different
+owners can declare different licenses.  The `license-type` choice
+is mandatory, so every entry carries either one or more SPDX tags
+or one or more license URLs (but not a mix of both kinds under a
+single owner; multi-licensing across kinds is expressed by adding
+additional entries with distinct owner names).
 
 
 The YANG schema for ownership and licensing
 ============================
 
-The following grouping and augmentation are proposed.
+The following grouping and augmentation are proposed.  The module
+imports `ietf-inet-types` {{!RFC6991}} for the `inet:uri` type used
+to carry license URLs, and `ietf-mud` {{RFC8520}} for the
+augmentation point.
 
 ~~~~~ yang
-{::include ietf-ol.yang}
+{::include ietf-owner-license.yang}
 ~~~~~
-{: sourcecode-markers='true' sourcecode-name='ietf-ol@2026-06-28.yang'}
+{: sourcecode-markers='true' sourcecode-name='ietf-owner-license@2026-06-28.yang'}
 
 Extension for MUD
 =================
 
-MUD files using this extension MUST include "ol" in the extensions
-array, as specified by {{RFC8520}}.
+MUD files using this extension MUST include the string "ol" in the
+extensions array, as specified by {{RFC8520}}.  Note that "ol" is
+the MUD extension token registered with IANA (see {{mud-ext}}); it
+is distinct from the YANG container name `owner-license` and from
+the YANG module name `ietf-owner-license`.
 
 Example
 =======
 
 In this example, the Frobmaster company is using the 0BSD SPDX
 tag to indicate a relatively open license.  The "ol" extension
-and container are present.  There is a single owner listed.
+and the `owner-license` container are present.  There is a single
+owner listed.
 
 ~~~~~~~~ json
 {::include example.json}
 ~~~~~~~~
 
-* **Task**: need Makefile for validating this against MUD.
-  (Probably put this into a separate file, too.)
-
-* **Issue**: Should we give an example for usage outside mud?
-
 Security Considerations
 =======================
 
-The security considerations of {{Section 16 of -mud}} with respect to
-obtaining validation for information claimed in a MUD file do apply.
-While the information described in this specification is not intended
-to directly influence the behavior of protective infrastructure, it
+The YANG module specified in this document defines a schema for data
+that is designed to be accessed via network management protocols such
+as NETCONF {{?RFC6241}} or RESTCONF {{?RFC8040}}.  The lowest NETCONF
+layer is the secure transport layer, and the mandatory-to-implement
+secure transport is Secure Shell (SSH) {{?RFC6242}}.  The lowest
+RESTCONF layer is HTTPS, and the mandatory-to-implement secure
+transport is TLS {{?RFC8446}}.
+
+The Network Configuration Access Control Model (NACM) {{?RFC8341}}
+provides the means to restrict access for particular NETCONF or
+RESTCONF users to a preconfigured subset of all available NETCONF or
+RESTCONF protocol operations and content.
+
+In practice, instance data conforming to this module is most often
+carried inside a MUD file {{RFC8520}} rather than served from a
+NETCONF/RESTCONF server; the considerations of {{Section 16 of RFC8520}}
+for obtaining and validating MUD files therefore apply.
+
+There are a number of data nodes defined in this YANG module that are
+writeable/creatable/deletable (i.e., config true, which is the
+default).  All data nodes under the augmented container
+`/ietf-mud:mud/ol:owner-license` fall in this category.  Unauthorized
+modification of these data nodes can falsify the asserted ownership
+or licensing terms of a MUD file.  This is not expected to directly
+influence the behavior of protective network infrastructure, but it
 may be used by an aggregator as input for deciding the legal basis
 that enables providing aggregated information; depending on the
 juridical environment, false information in the MUD file may thus
 expose the aggregator to additional legal risk.
 
+The data nodes defined in this YANG module are not considered
+sensitive or vulnerable from a disclosure (read) standpoint: ownership
+and licensing statements are intended to be publicly readable.
+
+This YANG module does not define any RPC or action operations.
+
 IANA Considerations
 ===================
 
-MUD Extension
--------------
+MUD Extension {#mud-ext}
+------------------------
 
 The IANA is requested to add "ol" to the
 {{mud-extensions (MUD extensions registry)<IANA.mud}} of {{IANA.mud}}
 as follows:
 
-Extension Name: 
+Extension Name:
 : ol
 
 Standard reference:
 : This document
 
-## XML Name Space Entry
+XML Name Space Entry
+--------------------
 
 This document requests IANA to register the following URI in the "ns"
 subregistry within the "IETF XML Registry" in accordance with {{!RFC3688}}:
 
 URI:
-: urn:ietf:params:xml:ns:yang:ietf-ol
+: urn:ietf:params:xml:ns:yang:ietf-owner-license
 
 Registrant Contact:
 : The IESG.
 
 XML: N/A; the requested URI is an XML namespace.
 
-## YANG Module Names
+YANG Module Names
+-----------------
 
 This document requests IANA to register the following YANG module in
 the "YANG Module Names" subregistry in accordance with {{!RFC6020}}
 within the "YANG Parameters" registry.
 
 name:
-: ietf-ol
+: ietf-owner-license
 
 namespace:
-: urn:ietf:params:xml:ns:yang:ietf-ol
+: urn:ietf:params:xml:ns:yang:ietf-owner-license
 
 maintained by IANA:
 : N
@@ -198,6 +229,30 @@ reference:
 
 Changes from Earlier Versions
 =============================
+
+Draft -04:
+
+  * Address RFC 8407 review:
+    * Rename the module to `ietf-owner-license` (namespace
+      `urn:ietf:params:xml:ns:yang:ietf-owner-license`); the
+      `ol` prefix is preserved.  Update the example, the IANA
+      registrations, and the file name accordingly.
+    * Improve the module `description`.
+    * Move the SPDX URL out of the leaf-list `description` into a
+      `reference` substatement.
+    * Update the copyright year in the module to 2026.
+    * Expand "IOTOPS" as "IoT Operations" in the `organization`
+      statement.
+    * Rewrite the Security Considerations to follow the YANG
+      Security Considerations template (NETCONF/RESTCONF transports,
+      NACM, writable subtree analysis, readability statement,
+      RPC/action statement).
+    * Add a normative reference to RFC 6991 (imported by the module).
+    * Add a normative reference to RFC 8340 (for the tree diagram).
+    * Note in the prose that the MUD extension token "ol" is
+      distinct from the YANG module name and container name.
+    * Normalise heading style in the IANA Considerations section.
+    * Resolve the outstanding `Issue` and `Task` markers.
 
 Draft -03:
 

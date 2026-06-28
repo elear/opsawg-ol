@@ -1,6 +1,6 @@
-module ietf-ol {
+module ietf-owner-license {
   yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-ol";
+  namespace "urn:ietf:params:xml:ns:yang:ietf-owner-license";
   prefix ol;
 
   import ietf-inet-types {
@@ -15,7 +15,7 @@ module ietf-ol {
   }
 
   organization
-    "IETF IOTOPS (IOT Operations) Working Group";
+    "IETF IOTOPS (IoT Operations) Working Group";
   contact
     "WG Web:   <http://datatracker.ietf.org/wg/iotops/>
      WG List:  <mailto:iotops@ietf.org>
@@ -26,9 +26,11 @@ module ietf-ol {
      Editor:   Carsten Bormann
                <mailto:cabo@tzi.org>";
   description
-    "This YANG module indicates ownership and licensing.
+    "This YANG module defines a grouping for expressing ownership
+     and licensing information for YANG-described static objects,
+     and augments the MUD model (RFC 8520) with that grouping.
 
-     Copyright (c) 2025 IETF Trust and the persons identified as
+     Copyright (c) 2026 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -76,8 +78,9 @@ module ietf-ol {
               type string;
               min-elements 1;
               description
-                "SPDX License Identifier, as indicated at
-                 https://spdx.org/licenses/";
+                "SPDX License Identifier.";
+              reference
+                "https://spdx.org/licenses/: SPDX License List";
             }
           }
           case url {
