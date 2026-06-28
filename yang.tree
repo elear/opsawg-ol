@@ -1,11 +1,11 @@
 module: ietf-ol
 
   augment /ietf-mud:mud:
-    +--rw ol
+    +--rw owner-license
        +--rw license* [owner-name]
           +--rw owner-name            string
-          +--rw (license-type)?
-             +--:(spdx-lt)
-             |  +--rw spdx-tags*      string
+          +--rw (license-type)
+             +--:(spdx)
+             |  +--rw spdx-tag*       string
              +--:(url)
                 +--rw license-info*   inet:uri

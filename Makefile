@@ -1,7 +1,7 @@
 
-DOCS=	draft-ietf-opsawg-ol.txt \
-	draft-ietf-opsawg-ol.xml \
-	draft-ietf-opsawg-ol.html
+DOCS=	draft-ietf-iotops-ol.txt \
+	draft-ietf-iotops-ol.xml \
+	draft-ietf-iotops-ol.html
 
 all: $(DOCS)
 

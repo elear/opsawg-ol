@@ -3,7 +3,7 @@ v: 3
 
 title: Ownership and licensing statements in YANG
 abbrev: Owner and Licensing Statements
-docname: draft-ietf-opsawg-ol-08
+docname: draft-ietf-iotops-ol-03
 category: std
 consensus: true
 submissiontype: IETF
@@ -107,7 +107,7 @@ The following grouping and augmentation are proposed.
 ~~~~~ yang
 {::include ietf-ol.yang}
 ~~~~~
-{: sourcecode-markers='true' sourcecode-name='ietf-ol@2024-04-26.yang'}
+{: sourcecode-markers='true' sourcecode-name='ietf-ol@2026-06-28.yang'}
 
 Extension for MUD
 =================
@@ -129,7 +129,7 @@ and container are present.  There is a single owner listed.
 * **Task**: need Makefile for validating this against MUD.
   (Probably put this into a separate file, too.)
 
-* **Issue**: Should we give an example for usage outside yang?
+* **Issue**: Should we give an example for usage outside mud?
 
 Security Considerations
 =======================
@@ -198,6 +198,18 @@ reference:
 
 Changes from Earlier Versions
 =============================
+
+Draft -03:
+
+  * Address YANG doctors review:
+    * Reformat the YANG `contact` statement per RFC 8407bis.
+    * Rename the container from `ol` to `owner-license`.
+    * Rename the SPDX case from `spdx-lt` to `spdx`.
+    * Drop the `-grouping` suffix from the grouping name.
+    * Make the `license-type` choice mandatory so that every
+      `license` entry carries either an SPDX tag or a URL.
+    * Correct the example to use the singular leaf-list name
+      `spdx-tag` and the renamed container.
 
 Draft -02:
 
