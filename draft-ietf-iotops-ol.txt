@@ -1,0 +1,672 @@
+
+
+
+
+Network Working Group                                            E. Lear
+Internet-Draft                                             Cisco Systems
+Updates: 8520 (if approved)                                   C. Bormann
+Intended status: Standards Track                  Universität Bremen TZI
+Expires: 31 December 2026                                   29 June 2026
+
+
+               Ownership and licensing statements in YANG
+                        draft-ietf-iotops-ol-03
+
+Abstract
+
+   This memo provides for an extension to RFC 8520 (Manufacturer Usage
+   Description Specification, MUD) that allows MUD file authors to
+   specify ownership and licensing of MUD files themselves.  This memo
+   updates RFC 8520.  However, it can also be used for purposes outside
+   of MUD, and the grouping is structured as such.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 31 December 2026.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 1]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+Table of Contents
+
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   2.  The owner-license extension and model . . . . . . . . . . . .   3
+   3.  The YANG schema for ownership and licensing . . . . . . . . .   3
+   4.  Extension for MUD . . . . . . . . . . . . . . . . . . . . . .   6
+   5.  Example . . . . . . . . . . . . . . . . . . . . . . . . . . .   6
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .   7
+     7.1.  MUD Extension . . . . . . . . . . . . . . . . . . . . . .   7
+     7.2.  XML Name Space Entry  . . . . . . . . . . . . . . . . . .   8
+     7.3.  YANG Module Names . . . . . . . . . . . . . . . . . . . .   8
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Appendix A.  Changes from Earlier Versions  . . . . . . . . . . .  10
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+
+1.  Introduction
+
+   [RFC8520] Manufacturer Usage Descriptions (MUD) can be used to
+   describe devices and their requirements to the network
+   infrastructure.  The original version of the specification does not
+   provide for a means to specify ownership and licensing of the MUD
+   file itself.  This can hinder those wishing to use, modify, or adapt
+   MUD files for the purpose of offering them, when the manufacturer is
+   not involved.
+
+   To avoid any confusion, we define an extension that allows for
+   specifying of owners and licensing terms for MUD files.
+
+   Those generating MUD files SHOULD use this extension, and thus this
+   extension updates RFC 8520.
+
+   There are two ways to specify a license: a URL pointing to the
+   license itself or an SPDX tag [SPDX].  These alternatives are
+   expressed as distinct cases of a YANG choice, so each license entry
+   unambiguously carries either one or more SPDX tags or one or more
+   license URLs.  If an SPDX tag is supplied consumers MUST interpret
+   that tag through its meaning as specified by [SPDX].
+
+   This grouping may be used for other YANG models that reside as static
+   objects.
+
+
+
+
+
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 2]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+2.  The owner-license extension and model
+
+   Because the model is primarily motivated by MUD, and based on the way
+   that YANG trees are formed, the model appears as an augmentation for
+   MUD.  The tree diagram below uses the notation defined in [RFC8340].
+
+   module: ietf-owner-license
+
+     augment /ietf-mud:mud:
+       +--rw owner-license
+          +--rw license* [owner-name]
+             +--rw owner-name            string
+             +--rw (license-type)
+                +--:(spdx)
+                |  +--rw spdx-tag*       string
+                +--:(url)
+                   +--rw license-info*   inet:uri
+
+   Each license list entry is keyed by owner-name, so different owners
+   can declare different licenses.  The license-type choice is
+   mandatory, so every entry carries either one or more SPDX tags or one
+   or more license URLs (but not a mix of both kinds under a single
+   owner; multi-licensing across kinds is expressed by adding additional
+   entries with distinct owner names).
+
+3.  The YANG schema for ownership and licensing
+
+   The following grouping and augmentation are proposed.  The module
+   imports ietf-inet-types [RFC9911] for the inet:uri type used to carry
+   license URLs, and ietf-mud [RFC8520] for the augmentation point.
+
+   <CODE BEGINS> file "ietf-owner-license@2026-06-28.yang"
+   module ietf-owner-license {
+     yang-version 1.1;
+     namespace "urn:ietf:params:xml:ns:yang:ietf-owner-license";
+     prefix ol;
+
+     import ietf-inet-types {
+       prefix inet;
+       reference
+         "RFC 9911: Common Yang Data Types, Section 4";
+     }
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 3]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+     import ietf-mud {
+       prefix ietf-mud;
+       reference
+         "RFC 8520: Manufacturer Usage Description Specification";
+     }
+
+     organization
+       "IETF IOTOPS (IoT Operations) Working Group";
+     contact
+       "WG Web:   <http://datatracker.ietf.org/wg/iotops/>
+        WG List:  <mailto:iotops@ietf.org>
+
+        Editor:   Eliot Lear
+                  <mailto:lear@cisco.com>
+
+        Editor:   Carsten Bormann
+                  <mailto:cabo@tzi.org>";
+     description
+       "This YANG module defines a grouping for expressing ownership
+        and licensing information for YANG-described static objects,
+        and augments the MUD model (RFC 8520) with that grouping.
+
+        Copyright (c) 2026 IETF Trust and the persons identified as
+        authors of the code.  All rights reserved.
+
+        Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject to
+        the license terms contained in, the Revised BSD License set
+        forth in Section 4.c of the IETF Trust's Legal Provisions
+        Relating to IETF Documents
+        (https://trustee.ietf.org/license-info).
+
+        This version of this YANG module is part of RFC XXXX
+        (https://www.rfc-editor.org/info/rfcXXXX);
+        see the RFC itself for full legal notices.";
+
+     revision 2026-06-28 {
+       description
+         "Initial revision.";
+       reference
+         "RFC XXXX: Ownership and Licensing Statements in YANG";
+     }
+
+     grouping owner-license {
+       description
+         "A grouping expressing ownership and license information.";
+       container owner-license {
+         description
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 4]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+           "Container relating to ownership and licensing.";
+         list license {
+           key "owner-name";
+           description
+             "List of licenses that may be applied.";
+           leaf owner-name {
+             type string {
+               length "1..128";
+             }
+             description
+               "Name of the owner.";
+           }
+           choice license-type {
+             mandatory true;
+             description
+               "Either choose a standard license type or point
+                to one of your own.";
+             case spdx {
+               leaf-list spdx-tag {
+                 type string;
+                 min-elements 1;
+                 description
+                   "SPDX License Identifier.";
+                 reference
+                   "https://spdx.org/licenses/: SPDX License List";
+               }
+             }
+             case url {
+               leaf-list license-info {
+                 type inet:uri;
+                 min-elements 1;
+                 description
+                   "A URL pointing to licensing information.";
+               }
+             }
+           }
+         }
+       }
+     }
+
+     augment "/ietf-mud:mud" {
+       description
+         "Add extension for ownership and licensing.";
+       uses owner-license;
+     }
+   }
+   <CODE ENDS>
+
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 5]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+4.  Extension for MUD
+
+   MUD files using this extension MUST include the string "ol" in the
+   extensions array, as specified by [RFC8520].  Note that "ol" is the
+   MUD extension token registered with IANA (see Section 7.1); it is
+   distinct from the YANG container name owner-license and from the YANG
+   module name ietf-owner-license.
+
+5.  Example
+
+   In this example, the Frobmaster company is using the 0BSD SPDX tag to
+   indicate a relatively open license.  The "ol" extension and the
+   owner-license container are present.  There is a single owner listed.
+
+   {
+     "ietf-mud:mud": {
+       "mud-version": 1,
+       "extensions": [
+         "ol"
+       ],
+       "ietf-owner-license:owner-license": {
+         "license": [
+           {
+             "owner-name": "Copyright 2024 Frobinator, Inc",
+             "spdx-tag": [
+               "0BSD"
+             ]
+           }
+         ]
+       },
+       "mud-url": "https://frobs.example.com/mud/Frob.json",
+       "mud-signature": "https://frobs.example.com/mud/Frob.p7s",
+       "last-update": "2021-05-24T11:26:04+00:00",
+       "cache-validity": 48,
+       "is-supported": true,
+       "systeminfo": "This device helps produce frobs",
+       "mfg-name": "FrobMaster",
+       "documentation": "https://frobs.example.com/doc",
+       "model-name": "Frobinator"
+     }
+   }
+
+
+
+
+
+
+
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 6]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+6.  Security Considerations
+
+   The YANG module specified in this document defines a schema for data
+   that is designed to be accessed via network management protocols such
+   as NETCONF [RFC6241] or RESTCONF [RFC8040].  The lowest NETCONF layer
+   is the secure transport layer, and the mandatory-to-implement secure
+   transport is Secure Shell (SSH) [RFC6242].  The lowest RESTCONF layer
+   is HTTPS, and the mandatory-to-implement secure transport is TLS
+   [RFC8446].
+
+   The Network Configuration Access Control Model (NACM) [RFC8341]
+   provides the means to restrict access for particular NETCONF or
+   RESTCONF users to a preconfigured subset of all available NETCONF or
+   RESTCONF protocol operations and content.
+
+   In practice, instance data conforming to this module is most often
+   carried inside a MUD file [RFC8520] rather than served from a
+   NETCONF/RESTCONF server; the considerations of Section 16 of
+   [RFC8520] for obtaining and validating MUD files therefore apply.
+
+   There are a number of data nodes defined in this YANG module that are
+   writeable/creatable/deletable (i.e., config true, which is the
+   default).  All data nodes under the augmented container /ietf-
+   mud:mud/ol:owner-license fall in this category.  Unauthorized
+   modification of these data nodes can falsify the asserted ownership
+   or licensing terms of a MUD file.  This is not expected to directly
+   influence the behavior of protective network infrastructure, but it
+   may be used by an aggregator as input for deciding the legal basis
+   that enables providing aggregated information; depending on the
+   juridical environment, false information in the MUD file may thus
+   expose the aggregator to additional legal risk.
+
+   The data nodes defined in this YANG module are not considered
+   sensitive or vulnerable from a disclosure (read) standpoint:
+   ownership and licensing statements are intended to be publicly
+   readable.
+
+   This YANG module does not define any RPC or action operations.
+
+7.  IANA Considerations
+
+7.1.  MUD Extension
+
+   The IANA is requested to add "ol" to the MUD extensions registry of
+   [IANA.mud] as follows:
+
+   Extension Name:  ol
+
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 7]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+   Standard reference:  This document
+
+7.2.  XML Name Space Entry
+
+   This document requests IANA to register the following URI in the "ns"
+   subregistry within the "IETF XML Registry" in accordance with
+   [RFC3688]:
+
+   URI:  urn:ietf:params:xml:ns:yang:ietf-owner-license
+
+   Registrant Contact:  The IESG.
+
+   XML: N/A; the requested URI is an XML namespace.
+
+7.3.  YANG Module Names
+
+   This document requests IANA to register the following YANG module in
+   the "YANG Module Names" subregistry in accordance with [RFC6020]
+   within the "YANG Parameters" registry.
+
+   name:  ietf-owner-license
+
+   namespace:  urn:ietf:params:xml:ns:yang:ietf-owner-license
+
+   maintained by IANA:  N
+
+   prefix:  ol
+
+   reference:  RFC XXXX
+
+8.  References
+
+8.1.  Normative References
+
+   [IANA.mud] IANA, "Manufacturer Usage Description (MUD)",
+              <https://www.iana.org/assignments/mud>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/rfc/rfc3688>.
+
+
+
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 8]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+   [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
+              the Network Configuration Protocol (NETCONF)", RFC 6020,
+              DOI 10.17487/RFC6020, October 2010,
+              <https://www.rfc-editor.org/rfc/rfc6020>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8340>.
+
+   [RFC8520]  Lear, E., Droms, R., and D. Romascanu, "Manufacturer Usage
+              Description Specification", RFC 8520,
+              DOI 10.17487/RFC8520, March 2019,
+              <https://www.rfc-editor.org/rfc/rfc8520>.
+
+   [RFC9911]  Schönwälder, J., Ed., "Common YANG Data Types", RFC 9911,
+              DOI 10.17487/RFC9911, December 2025,
+              <https://www.rfc-editor.org/rfc/rfc9911>.
+
+   [SPDX]     The Linux Foundation, "The Software Package Data Exchange®
+              (SPDX®) Specification Version 2.3", 2022,
+              <https://spdx.github.io/spdx-spec/v2.3/>.
+
+8.2.  Informative References
+
+   [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
+              and A. Bierman, Ed., "Network Configuration Protocol
+              (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6241>.
+
+   [RFC6242]  Wasserman, M., "Using the NETCONF Protocol over Secure
+              Shell (SSH)", RFC 6242, DOI 10.17487/RFC6242, June 2011,
+              <https://www.rfc-editor.org/rfc/rfc6242>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/rfc/rfc8040>.
+
+   [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
+              Access Control Model", STD 91, RFC 8341,
+              DOI 10.17487/RFC8341, March 2018,
+              <https://www.rfc-editor.org/rfc/rfc8341>.
+
+
+
+
+
+
+Lear & Bormann          Expires 31 December 2026                [Page 9]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
+Appendix A.  Changes from Earlier Versions
+
+   Draft -04:
+
+   *  Address RFC 8407 review:
+
+      -  Rename the module to ietf-owner-license (namespace
+         urn:ietf:params:xml:ns:yang:ietf-owner-license); the ol prefix
+         is preserved.  Update the example, the IANA registrations, and
+         the file name accordingly.
+
+      -  Improve the module description.
+
+      -  Move the SPDX URL out of the leaf-list description into a
+         reference substatement.
+
+      -  Update the copyright year in the module to 2026.
+
+      -  Expand "IOTOPS" as "IoT Operations" in the organization
+         statement.
+
+      -  Rewrite the Security Considerations to follow the YANG Security
+         Considerations template (NETCONF/RESTCONF transports, NACM,
+         writable subtree analysis, readability statement, RPC/action
+         statement).
+
+      -  Add a normative reference to RFC 9911 (imported by the module).
+
+      -  Add a normative reference to RFC 8340 (for the tree diagram).
+
+      -  Note in the prose that the MUD extension token "ol" is distinct
+         from the YANG module name and container name.
+
+      -  Normalise heading style in the IANA Considerations section.
+
+      -  Resolve the outstanding Issue and Task markers.
+
+   Draft -03:
+
+   *  Address YANG doctors review:
+
+      -  Reformat the YANG contact statement per RFC 8407bis.
+
+      -  Rename the container from ol to owner-license.
+
+
+
+Lear & Bormann          Expires 31 December 2026               [Page 10]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+      -  Rename the SPDX case from spdx-lt to spdx.
+
+      -  Drop the -grouping suffix from the grouping name.
+
+      -  Make the license-type choice mandatory so that every license
+         entry carries either an SPDX tag or a URL.
+
+      -  Correct the example to use the singular leaf-list name spdx-tag
+         and the renamed container.
+
+   Draft -02:
+
+   *  Small updates to the example
+
+   Draft -01:
+
+   *  Format IANA considerations
+
+   *  Discuss security considerations
+
+   Draft -00:
+
+   *  Resubmit unchanged
+
+   Individual Draft -01:
+
+   *  Add some issues
+
+   *  correct spacing
+
+   Individual Draft -00:
+
+   *  Initial revision
+
+Authors' Addresses
+
+   Eliot Lear
+   Cisco Systems
+   Richtistrasse 7
+   CH-8304 Wallisellen
+   Switzerland
+   Phone: +41 44 878 9200
+   Email: lear@cisco.com
+
+
+
+
+
+
+
+
+Lear & Bormann          Expires 31 December 2026               [Page 11]
+
+Internet-Draft       Owner and Licensing Statements            June 2026
+
+
+   Carsten Bormann
+   Universität Bremen TZI
+   Postfach 330440
+   D-28359 Bremen
+   Germany
+   Email: cabo@tzi.org
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Lear & Bormann          Expires 31 December 2026               [Page 12]
