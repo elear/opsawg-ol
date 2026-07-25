@@ -60,8 +60,7 @@ The original version of the specification does not provide for a
 means to specify ownership and licensing of the MUD file itself.  This
 can hinder those wishing to use, modify, or adapt MUD files for the
 purpose of offering them, when the manufacturer is not involved.
-
-To avoid any confusion, we define an extension that allows for
+We define an extension that allows for
 specifying of owners and licensing terms for MUD files.
 
 Those generating MUD files SHOULD use this extension, and
@@ -72,7 +71,8 @@ itself or an SPDX tag {{SPDX}}.  These alternatives are expressed as
 distinct cases of a YANG `choice`, so each license entry unambiguously
 carries either one or more SPDX tags or one or more license URLs.
 If an SPDX tag is supplied consumers MUST interpret that tag through
-its meaning as specified by {{SPDX}}.
+its meaning as specified by {{SPDX}}.  If there are multiple licenses,
+the consumer may choose which one to apply.
 
 This grouping may be used for other YANG models that reside as
 static objects.
@@ -229,6 +229,22 @@ reference:
 
 Changes from Earlier Versions
 =============================
+
+Draft-04:
+
+ * Address Ari's comments:
+   * Remove the copyright words from the example.
+   * Clarify that licenses are OR'd not AND'd.
+
+
+Draft-03:
+
+  * Address RFC 8407bis review:
+    * Update the `contact` statement to use the new format.
+    * Update the `description` statement to use the new format.
+    * Update the `reference` statement to use the new format.
+  
+(Readoption in iotops)
 
 Draft -04:
 
